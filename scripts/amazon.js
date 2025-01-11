@@ -96,8 +96,18 @@ document.querySelectorAll('.js-add-to-cart')
     quantity : 1
    });
   }
-   
-  console.log(cart);
+
+//Calculating total quantity in the cart for the shopping cart icon on right side
+  let cartQuantity =0;
+
+  cart.forEach((item)=>{
+cartQuantity += item.quantity;
+  })
+
+
+  document.querySelector('.js-cart-quantity')
+  .innerHTML = cartQuantity; //puttin the cart value on the icon
+
   /*
   Steps:
   1. attached product-name using data attribute (in notes).
