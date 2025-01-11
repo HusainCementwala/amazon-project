@@ -50,7 +50,8 @@ products.forEach((product)=>{
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary js-add-to-cart">
+          <button class="add-to-cart-button button-primary js-add-to-cart"
+          data-product-id="${product.id}">
             Add to Cart
           </button>
         </div>`;
@@ -70,7 +71,38 @@ document.querySelectorAll('.js-add-to-cart')
 .forEach((button)=>{
 
   button.addEventListener('click',()=>{
+ 
+   const productId = button.dataset.productId;
+   // the product-id on line 54 gets converted from kebab-case to camelCase.
+   //using Id instead of name because 2 products can have the sae name but always a unique id
+  let matchingItem;
 
-    console.log('working');
-  })
+  cart.forEach((item)=>{
+    if(productId === item.productId){
+    
+      matchingItem = item;
+
+    }
+  });
+   
+  if(matchingItem){ //it is an object of truthy value
+
+   matchingItem.quantity +=1;
+  }
+
+  else{
+    cart.push({
+    productId : productId,
+    quantity : 1
+   });
+  }
+   
+  console.log(cart);
+  /*
+  Steps:
+  1. attached product-name using data attribute (in notes).
+  2. on clicking the button we got the productName out.
+  3. we add product to the cart (in file data/cart.js).
+  */
+ });
 });
