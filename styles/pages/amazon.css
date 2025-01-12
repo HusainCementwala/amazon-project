@@ -130,6 +130,8 @@
   flex: 1;
 }
 
+
+
 .added-to-cart {
   color: rgb(6, 125, 98);
   font-size: 16px;
@@ -143,6 +145,11 @@
      opacity and make it visible. */
   opacity: 0;
 }
+
+.added-to-cart-visible{
+  opacity: 1;
+} /*this changed the green message to visibe when the click button is pressed and a new class is added o the element*/ 
+
 
 .added-to-cart img {
   height: 20px;

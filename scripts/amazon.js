@@ -28,7 +28,8 @@ products.forEach((product)=>{
           </div>
 
           <div class="product-quantity-container">
-            <select>
+            <select 
+            class="js-quantity-selector-${product.id}">
               <option selected value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -45,7 +46,7 @@ products.forEach((product)=>{
 
           <div class="product-spacer"></div>
 
-          <div class="added-to-cart">
+          <div class="added-to-cart js-added-to-cart-${product.id}">
             <img src="images/icons/checkmark.png">
             Added
           </div>
@@ -65,6 +66,8 @@ console.log(productsHTML);
 document.querySelector('.js-products-grid')
 .innerHTML = productsHTML;
 
+const addedMessageTimeouts = {}; //for he greem pop message
+
 
 //on clicking the add-to-cart button
 document.querySelectorAll('.js-add-to-cart')
@@ -73,8 +76,14 @@ document.querySelectorAll('.js-add-to-cart')
   button.addEventListener('click',()=>{
  
    const productId = button.dataset.productId;
+   //or we can write = const {product} = button.dataset;
+
+
    // the product-id on line 54 gets converted from kebab-case to camelCase.
-   //using Id instead of name because 2 products can have the sae name but always a unique id
+   //using Id instead of name because 2 products can have the same name but always a unique id
+
+
+   
   let matchingItem;
 
   cart.forEach((item)=>{
@@ -84,16 +93,21 @@ document.querySelectorAll('.js-add-to-cart')
 
     }
   });
+
+  const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`);
+
+  const quantitySelect = Number(quantitySelector.value);
    
   if(matchingItem){ //it is an object of truthy value
 
-   matchingItem.quantity +=1;
+   matchingItem.quantity += quantitySelect;
   }
 
   else{
     cart.push({
     productId : productId,
-    quantity : 1
+    quantity : quantitySelect
+    
    });
   }
 
@@ -102,11 +116,37 @@ document.querySelectorAll('.js-add-to-cart')
 
   cart.forEach((item)=>{
 cartQuantity += item.quantity;
-  })
+  });
 
 
   document.querySelector('.js-cart-quantity')
   .innerHTML = cartQuantity; //puttin the cart value on the icon
+
+
+  const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
+
+  addedMessage.classList.add('added-to-cart-visible');
+//here we will display the green message using css style where we turn the opacity of message from 0 to 1 for 2 seconds
+
+
+
+  // Check if there's a previous timeout for this
+  // product. If there is, we should stop it.
+  const previousTimeoutId = addedMessageTimeouts[productId];
+  if (previousTimeoutId) {
+    clearTimeout(previousTimeoutId);
+  }
+
+  const timeoutId = setTimeout(() => {
+    addedMessage.classList.remove('added-to-cart-visible');
+  }, 2000);
+
+  // Save the timeoutId for this product
+  // so we can stop it later if we need to.
+  addedMessageTimeouts[productId] = timeoutId;
+
+
+
 
   /*
   Steps:
