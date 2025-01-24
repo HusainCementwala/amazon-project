@@ -2,6 +2,7 @@
 
 
 import { cart } from '../data/cart.js';
+import { products } from '../data/products.js'
 // '../' gets us out of current folder
 
 

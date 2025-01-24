@@ -1,6 +1,6 @@
 //all these are an items array which is first run then loaded to scripts/amazon.js file to be uploaded on the page
 
-const products = [
+ export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     image: "images/products/athletic-cotton-socks-6-pairs.jpg",
