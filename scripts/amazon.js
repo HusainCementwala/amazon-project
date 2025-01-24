@@ -1,5 +1,10 @@
 //this file gets all the products from data/products.js file and then it starts running
 
+
+import { cart } from '../data/cart.js';
+// '../' gets us out of current folder
+
+
 let productsHTML = '';
 
 products.forEach((product)=>{
