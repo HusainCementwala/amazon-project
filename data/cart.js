@@ -1,14 +1,22 @@
-export let cart = [{
+export let cart = JSON.parse(localStorage.getItem('cart')) ;
+//if storage is empty so it will give it the below default value
+if(!cart){
 
+ cart =  [{
   productId:'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
   quantity: 2,
 },
 {
-
   productId:'15b6fc6f-327a-4ec4-896f-486349e85a3d',
   quantity:1
 }];
+}
 
+//saving to local storage
+function saveToStorage(){
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
 
 
 //this function is called on clicking add to cart in amazon.js file
@@ -33,6 +41,8 @@ export function addToCart(productId){
     quantity : quantitySelect  
    });
   }
+
+  saveToStorage();
 }
 
 
@@ -55,4 +65,5 @@ export function removeFromCart(productId){
 
 
   cart = newCart;
+  saveToStorage();
 }
