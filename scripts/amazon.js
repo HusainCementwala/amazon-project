@@ -3,6 +3,7 @@
 
 import {cart, addToCart} from '../data/cart.js';
 import {products} from '../data/products.js'
+import { formatCurrency } from './utils/money.js';
 
 // '../' gets us out of current folder
 
@@ -31,7 +32,7 @@ products.forEach((product)=>{
           </div>
 
           <div class="product-price">
-            $${(product.priceCents / 100).toFixed(2)/*while displaying we convert back to dollars*/} 
+            $${formatCurrency(product.priceCents)/*while displaying we convert back to dollars using fucntion in money.js file*/} 
           </div>
 
           <div class="product-quantity-container">
