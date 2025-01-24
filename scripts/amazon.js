@@ -121,7 +121,8 @@ document.querySelectorAll('.js-add-to-cart')
   //or we can write = const {product} = button.dataset;
 
 addToCart(productId); //since productId was defined outside funtion we pass it as parameter
-updateCartQuantity(productId);
+//function in cart.js
+updateCartQuantity(productId); //function just above
 
  });
 });

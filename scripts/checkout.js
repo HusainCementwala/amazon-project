@@ -1,4 +1,4 @@
-import {cart} from '../data/cart.js';
+import {cart, removeFromCart} from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 
@@ -42,7 +42,7 @@ cart.forEach((cartItem)=>{
           <span class="update-quantity-link link-primary">
             Update
           </span>
-          <span class="delete-quantity-link link-primary">
+          <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProduct.id}">
             Delete
           </span>
         </div>
@@ -99,3 +99,22 @@ cart.forEach((cartItem)=>{
 });
 
 document.querySelector(".js-order-summary").innerHTML = cartSummaryHTML;
+
+
+document.querySelectorAll(".js-delete-link")
+.forEach((link)=>{
+  link.addEventListener("click",()=>{
+   /*on clicking DELETE WE NEED TO:
+   1.remove the product from the cart
+   2.update the html in backticks(``);
+   */
+  //for this we attached he product id to the element in the html above so that we know which product to delete 
+  const productId = link.dataset.productId;
+  removeFromCart(productId);  //caling the function from cart.js file
+
+  console.log(cart);
+  
+
+  });
+
+});
