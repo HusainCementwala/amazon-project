@@ -69,7 +69,7 @@ products.forEach((product)=>{
 });
 
 
-console.log(productsHTML);
+console.log(productsHTML); //remove it afterwards
 
 document.querySelector('.js-products-grid')
 .innerHTML = productsHTML;
@@ -88,6 +88,8 @@ cartQuantity += cartItem.quantity;
   document.querySelector('.js-cart-quantity')
   .innerHTML = cartQuantity; //puttin the cart value on the icon
 
+
+  
   const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
   addedMessage.classList.add('added-to-cart-visible');
 //here we will display the green message using css style where we turn the opacity of message from 0 to 1 for 2 seconds
@@ -107,7 +109,10 @@ cartQuantity += cartItem.quantity;
   addedMessageTimeouts[productId] = timeoutId;
   // the product-id  gets converted from kebab-case to camelCase.
 //using Id instead of name because 2 products can have the same name but always a unique id
+
 }
+
+
 
 
 

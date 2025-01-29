@@ -120,9 +120,28 @@ document.querySelectorAll(".js-delete-link")
   //this will remove the targeted html from the page on clicking delete of that specified button
  container.remove();
 
-  
+  updateCartQuantity();
   
 
   });
 
 });
+
+function updateCartQuantity(){
+
+
+let cartQuantity = 0;
+
+cart.forEach((cartItem)=>{
+
+  cartQuantity += cartItem.quantity;
+
+});
+
+document.querySelector(".js-return-to-home-link")
+.innerHTML = `${cartQuantity} items`;
+
+
+}
+
+updateCartQuantity();
