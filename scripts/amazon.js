@@ -80,17 +80,42 @@ const addedMessageTimeouts = {}; //for the green pop message
 function updateCartQuantity(productId){
 
   //Calculating total quantity in the cart for the shopping cart icon on right side
-  let cartQuantity =0;
+  let cartQuantity = 0;
 
   cart.forEach((cartItem)=>{
 cartQuantity += cartItem.quantity;
   });
-  document.querySelector('.js-cart-quantity')
-  .innerHTML = cartQuantity; //puttin the cart value on the icon
+
+      document.querySelector('.js-cart-quantity').innerHTML = cartQuantity; 
+    
+}
+
+updateCartQuantity();
 
 
-  
-  const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
+
+
+
+
+
+
+
+
+/*********************************** */
+//on clicking the add-to-cart button
+document.querySelectorAll('.js-add-to-cart')
+.forEach((button)=>{
+
+  button.addEventListener('click',()=>{
+  const productId = button.dataset.productId;
+  //or we can write = const {product} = button.dataset;
+
+addToCart(productId); //since productId was defined outside funtion we pass it as parameter
+//function in cart.js
+
+
+
+const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
   addedMessage.classList.add('added-to-cart-visible');
 //here we will display the green message using css style where we turn the opacity of message from 0 to 1 for 2 seconds
 
@@ -110,24 +135,8 @@ cartQuantity += cartItem.quantity;
   // the product-id  gets converted from kebab-case to camelCase.
 //using Id instead of name because 2 products can have the same name but always a unique id
 
-}
-
-
-
-
-
-/*********************************** */
-//on clicking the add-to-cart button
-document.querySelectorAll('.js-add-to-cart')
-.forEach((button)=>{
-
-  button.addEventListener('click',()=>{
-  const productId = button.dataset.productId;
-  //or we can write = const {product} = button.dataset;
-
-addToCart(productId); //since productId was defined outside funtion we pass it as parameter
-//function in cart.js
-updateCartQuantity(productId); //function just above
+//we run below function after generating the class above 
+updateCartQuantity(); //function just above
 
  });
 });
