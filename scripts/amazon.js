@@ -1,7 +1,7 @@
 //this file gets all the products from data/products.js file and then it starts running
 
 
-import {cart, addToCart} from '../data/cart.js';
+import {cart, addToCart, calculateCartQuantity} from '../data/cart.js';
 import {products} from '../data/products.js'
 import { formatCurrency } from './utils/money.js';
 
@@ -77,15 +77,13 @@ document.querySelector('.js-products-grid')
 const addedMessageTimeouts = {}; //for the green pop message
 
 
-function updateCartQuantity(productId){
+function updateCartQuantity(){
 
   //Calculating total quantity in the cart for the shopping cart icon on right side
-  let cartQuantity = 0;
 
-  cart.forEach((cartItem)=>{
-cartQuantity += cartItem.quantity;
-  });
-
+ const cartQuantity = calculateCartQuantity();
+ //shifted the function to cart.js as it corresponds to it
+ 
       document.querySelector('.js-cart-quantity').innerHTML = cartQuantity; 
     
 }

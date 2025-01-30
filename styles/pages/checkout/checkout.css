@@ -209,3 +209,50 @@
   margin-top: 11px;
   margin-bottom: 15px;
 }
+
+
+.quantity-input{
+
+  width: 30px;
+  display: none;
+}
+
+.save-quantity-link{
+
+  display:none;
+}
+
+.update-quantity-link{
+
+  display: initial;
+}
+
+
+.is-editing-quantity .quantity-input{ /*this makes the content appear when the other class is added at the click of update*/
+
+  display: initial;
+
+}
+
+.is-editing-quantity .save-quantity-link{
+
+  display: initial;
+}
+
+
+.is-editing-quantity .quantity-label{
+
+  display: none;
+}
+
+
+.is-editing-quantity .update-quantity-link{  /*the second class is class for UPDATE word which disappears when the first class is added or in DOM TERMS , when the update button is clicked it disapears*/
+
+  display: none;
+}
+
+
+
+
+
+

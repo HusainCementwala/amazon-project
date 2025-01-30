@@ -1,6 +1,13 @@
-import {cart, removeFromCart} from '../data/cart.js';
+import {
+  cart,
+  removeFromCart,  
+  calculateCartQuantity,
+  updateQuantity} from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
+
+
+hello();
 
 let cartSummaryHTML = '';
 
@@ -38,11 +45,22 @@ cart.forEach((cartItem)=>{
         </div>
         <div class="product-quantity">
           <span>
-            Quantity: <span class="quantity-label">${cartItem.quantity}</span>
+            Quantity: <span class="quantity-label 
+            js-quantity-label-${matchingProduct.id}">${cartItem.quantity}</span>
           </span>
-          <span class="update-quantity-link link-primary">
+          <span class="update-quantity-link link-primary js-update-link"
+          data-product-id="${matchingProduct.id}">
             Update
           </span>
+
+          <input class="quantity-input js-quantity-input-${matchingProduct.id}">
+
+          <span class="save-quantity-link link-primary js-save-link"
+           data-product-id="${matchingProduct.id}">
+          Save
+          </span>
+
+
           <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProduct.id}">
             Delete
           </span>
@@ -125,18 +143,17 @@ document.querySelectorAll(".js-delete-link")
 
   });
 
+  
 });
+
+
+
 
 function updateCartQuantity(){
 
 
-let cartQuantity = 0;
-
-cart.forEach((cartItem)=>{
-
-  cartQuantity += cartItem.quantity;
-
-});
+const cartQuantity = calculateCartQuantity();
+//shifted the function to cart.js as it corresponds to it
 
 document.querySelector(".js-return-to-home-link")
 .innerHTML = `${cartQuantity} items`;
@@ -145,3 +162,60 @@ document.querySelector(".js-return-to-home-link")
 }
 
 updateCartQuantity();
+
+
+
+
+document.querySelectorAll('.js-update-link')
+  .forEach((link) => {
+    link.addEventListener('click', () => {
+      const productId = link.dataset.productId;
+      const container = document.querySelector(
+        `.js-cart-item-container-${productId}`
+      );
+      container.classList.add('is-editing-quantity');
+    });
+  });
+
+document.querySelectorAll('.js-save-link')
+  .forEach((link) => {
+    link.addEventListener('click', () => {
+
+      const productId = link.dataset.productId;
+
+      const container = document.querySelector(
+        `.js-cart-item-container-${productId}`
+      );
+       // Get the input field
+       const quantityInput = container.querySelector(`.js-quantity-input-${productId}`);
+      
+       // Get the new quantity value (you can update your logic here)
+       const newQuantity = Number(quantityInput.value);
+
+       if(newQuantity < 0 || newQuantity >=1000){
+
+        alert('Quantity must be at least 0 or less than 1000');
+
+        return;
+       }
+
+
+       updateQuantity(productId,newQuantity);
+ 
+
+       
+      container.classList.remove('is-editing-quantity');
+
+
+
+
+       const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
+
+       quantityLabel.innerHTML  = newQuantity;
+       //attaching the new quantity to the checkout in center
+       
+       updateCartQuantity()
+ 
+       
+     });
+   });
