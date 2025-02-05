@@ -5,11 +5,11 @@ import {
   updateQuantity,
   updateDeliveryOption
 } from '../../data/cart.js';
-import { products } from '../../data/products.js';
+import { products, getProduct } from '../../data/products.js';
 import formatCurrency from '../utils/money.js'; //default export
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'; //this is returning a function from external esm library
 //the synax in dayjs is different as it is exported by DEFAULT  
-import {deliveryOptions} from  '../../data/deliveryOptions.js'
+import {deliveryOptions, getDeliveryOption} from  '../../data/deliveryOptions.js'
 
 
 
@@ -22,27 +22,16 @@ let cartSummaryHTML = '';
 
     const productId = cartItem.productId;
 
-    let matchingProduct;
-
-    products.forEach((product)=>{
-
-      if(product.id===productId){ //seeing if product id matches 
-        matchingProduct = product; //uing id we have all info of that product which is an object stored in matchingProduct variable
-      }
-    });
+    const matchingProduct = getProduct(productId); 
+    //this function is in products.js to get the particular product details
 
     const deliveryOptionId = cartItem.deliveryOptionId;
 
 
-    let deliveryOption;
+    const deliveryOption = getDeliveryOption(deliveryOptionId);
+    //function in deliveryOptions.js
 
-    deliveryOptions.forEach((option)=>{
-
-      if(option.id === deliveryOptionId){
-        deliveryOption = option;
-      }
-
-    });
+    
 
     const today = dayjs();
       const deliveryDate = today.add(

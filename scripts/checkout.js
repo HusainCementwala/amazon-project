@@ -1,4 +1,5 @@
 import { renderOrderSummary } from "./checkout/orderSummary.js";
+import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 
 
 renderOrderSummary(); //to change the values on multiple places in the page
@@ -8,3 +9,6 @@ renderOrderSummary(); //to change the values on multiple places in the page
 //1. when we arrive on this page(by the call above)
 //2. By calling it in the event listener of the radio button {see there} means its calling itself or rerunning it(recursion) . check the whole function in 
 //orderSummary.js
+
+
+renderPaymentSummary();

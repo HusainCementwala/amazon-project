@@ -1,3 +1,22 @@
+export function getProduct(productId){
+
+  let matchingProduct;
+
+    products.forEach((product)=>{
+
+      if(product.id===productId){ //seeing if product id matches 
+        matchingProduct = product; //uing id we have all info of that product which is an object stored in matchingProduct variable
+      }
+    });
+
+    return matchingProduct;
+
+
+}
+
+
+
+
 //all these are an items array which is first run then loaded to scripts/amazon.js file to be uploaded on the page
 
  export const products = [
