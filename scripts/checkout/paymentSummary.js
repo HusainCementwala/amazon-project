@@ -1,4 +1,4 @@
-import { cart } from "../../data/cart.js";
+import { calculateCartQuantity, cart } from "../../data/cart.js";
 import { getProduct } from "../../data/products.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
 import { formatCurrency } from "../utils/money.js"
@@ -32,7 +32,7 @@ const paymentSummaryHTML =
           </div>
 
           <div class="payment-summary-row">
-            <div>Items (3):</div>
+            <div>Items (${calculateCartQuantity()}):</div>
             <div class="payment-summary-money">
             $${formatCurrency(productPriceCents)}</div>
           </div>

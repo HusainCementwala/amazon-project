@@ -2,6 +2,7 @@ import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 
 
+
 renderOrderSummary(); //to change the values on multiple places in the page
 //we put the whole code in a function and called it 
 //EX the date on top of order has to change automatically on changing the delivery radio button

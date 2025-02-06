@@ -9,7 +9,7 @@ import { products, getProduct } from '../../data/products.js';
 import formatCurrency from '../utils/money.js'; //default export
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'; //this is returning a function from external esm library
 //the synax in dayjs is different as it is exported by DEFAULT  
-import {deliveryOptions, getDeliveryOption} from  '../../data/deliveryOptions.js'
+import {deliveryOptions, getDeliveryOption, calculateDeliveryDate} from  '../../data/deliveryOptions.js'
 import { renderPaymentSummary } from './paymentSummary.js';
 
 
@@ -34,12 +34,8 @@ let cartSummaryHTML = '';
 
     
 
-    const today = dayjs();
-      const deliveryDate = today.add(
-        deliveryOption.deliveryDays,
-        'days'
-      );
-      const dateString = deliveryDate.format('dddd, MMMM D');
+   
+      const dateString = calculateDeliveryDate(deliveryOption);
 
     cartSummaryHTML+=`
   <div class="cart-item-container 
@@ -101,12 +97,8 @@ let cartSummaryHTML = '';
     let html = '';
     deliveryOptions.forEach((deliveryOption)=>{
 
-      const today = dayjs();
-      const deliveryDate = today.add(
-        deliveryOption.deliveryDays,
-        'days'
-      );
-      const dateString = deliveryDate.format('dddd, MMMM D');
+      
+      const dateString = calculateDeliveryDate(deliveryOption);
 
       const priceString = deliveryOption.priceCents === 0
       ? 'FREE' : `$${formatCurrency(deliveryOption.priceCents)}-`;
@@ -160,10 +152,14 @@ let cartSummaryHTML = '';
 
 
     //we added a new class to the main div in the above html
-    const container = document.querySelector(`.js-cart-item-container-${productId}`);
+    //const container = document.querySelector(`.js-cart-item-container-${productId}`);
 
     //this will remove the targeted html from the page on clicking delete of that specified button
-  container.remove();
+  //container.remove();
+
+  //INSTEAD OF ABOVE CODE WE REGENERATE THE HTML RATHER THAN DELETE THE DOM
+
+  renderOrderSummary();
 
     updateCartQuantity();
     
