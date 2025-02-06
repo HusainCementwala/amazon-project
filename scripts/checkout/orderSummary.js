@@ -10,6 +10,7 @@ import formatCurrency from '../utils/money.js'; //default export
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'; //this is returning a function from external esm library
 //the synax in dayjs is different as it is exported by DEFAULT  
 import {deliveryOptions, getDeliveryOption} from  '../../data/deliveryOptions.js'
+import { renderPaymentSummary } from './paymentSummary.js';
 
 
 
@@ -155,6 +156,9 @@ let cartSummaryHTML = '';
     removeFromCart(productId);  //caling the function from cart.js file
 
 
+    renderPaymentSummary(); //regenerate the payment summary when we delete some item
+
+
     //we added a new class to the main div in the above html
     const container = document.querySelector(`.js-cart-item-container-${productId}`);
 
@@ -234,7 +238,10 @@ let cartSummaryHTML = '';
         //attaching the new quantity to the checkout in center
         
         
-        updateCartQuantity()
+        updateCartQuantity();
+        renderPaymentSummary(); //payment part refreshes on saving new value in UPDATE
+       
+        
   
         
       });
@@ -253,6 +260,8 @@ let cartSummaryHTML = '';
         renderOrderSummary(); //yes here
         //on switching between the radio buttons the whole page is rerun and refreshed 
         //this means deleting the pravious html on the page and readding it
+        renderPaymentSummary();
+        //payment part refrehhes on changing delivery date to accomodate delivery charges
       });
 
     });
