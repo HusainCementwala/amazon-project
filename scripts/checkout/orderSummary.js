@@ -39,7 +39,8 @@ let cartSummaryHTML = '';
 
     cartSummaryHTML+=`
   <div class="cart-item-container 
-  js-cart-item-container-${matchingProduct.id}">
+  js-cart-item-container-${matchingProduct.id} 
+  js-cart-item-container">
       <div class="delivery-date">
         Delivery date: ${dateString}
       </div>
@@ -263,7 +264,6 @@ let cartSummaryHTML = '';
     });
 
   }
-
 
   renderOrderSummary(); //to change the values on multiple places in the page
   //we put the whole code in a function and called it 
